@@ -1,4 +1,4 @@
-package com.haeseong5.android.linememo.memo;
+package com.haeseong5.android.linememo.memo.views;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,36 +13,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.haeseong5.android.linememo.R;
-import com.haeseong5.android.linememo.memo.database.model.Memo;
+import com.haeseong5.android.linememo.memo.database.models.Memo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MyViewHolder> {
 
+    private static final String TAG = MemoAdapter.class.getName();
     private ArrayList<Memo> memos;
-
+    private Context context;
     private OnItemClickListener mListener = null ;
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
     }
-    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener ;
     }
 
-    // constructor
-    public MemoAdapter(ArrayList<Memo> memos){
+    public MemoAdapter(Context context, ArrayList<Memo> memos){
+        this.context = context;
         this.memos = memos;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        // inflate item_layout
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_memo2, null);
+                .inflate(R.layout.item_memo, null);
 
         MyViewHolder vh = new MyViewHolder(itemLayoutView);
         return vh;
@@ -50,11 +48,13 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        Glide.with(context).load(memos.get(position).getImage()).into(holder.itemImage); //Glide
+        try{
+            Glide.with(context).load(memos.get(position).getThumbNail()).into(holder.itemImage); //Glide
+        }catch (Exception e){
+            Log.d(TAG ,e.toString());
+        }
         holder.itemTitle.setText(memos.get(position).getTitle());
         holder.itemContent.setText(memos.get(position).getContent());
-        Log.d("adapter ", memos.get(position).getTitle());
-
     }
 
     @Override
@@ -74,17 +74,15 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MyViewHolder> 
 
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            itemTitle = itemLayoutView.findViewById(R.id.item_text1);
-            itemContent = itemLayoutView.findViewById(R.id.item_text2);
-            itemImage = itemLayoutView.findViewById(R.id.item_icon);
+            itemTitle = itemLayoutView.findViewById(R.id.item_memo_tv_title);
+            itemContent = itemLayoutView.findViewById(R.id.item_memo_tv_content);
+            itemImage = itemLayoutView.findViewById(R.id.item_memo_iv_image);
 
-            // 아이템 클릭 이벤트 처리.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition() ;
                     if (pos != RecyclerView.NO_POSITION) {
-                        // 리스너 객체의 메서드 호출.
                         if (mListener != null) {
                             mListener.onItemClick(v, pos) ;
                         }

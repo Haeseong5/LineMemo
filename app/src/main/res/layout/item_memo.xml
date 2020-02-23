@@ -1,59 +1,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp">
 
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:layout_margin="0dp"
-        android:background="@drawable/item_border">
-
+        android:gravity="center_vertical"
+        android:background="@drawable/view_shape">
         <!-- icon -->
         <ImageView
-            android:id="@+id/item_icon"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:id="@+id/item_memo_iv_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="1dp"
             android:background="@color/colorMain"
-            />
+            android:scaleType="centerCrop"/>
 
         <!-- title -->
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/item_memo_tv_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/item_icon"
-            android:layout_alignBaseline="@+id/item_icon"
+            android:layout_toRightOf="@+id/item_memo_iv_image"
+            android:layout_alignBaseline="@+id/item_memo_iv_image"
             android:textColor="@android:color/black"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
             android:textSize="18dp"
-            android:text="Title"
+            android:maxLines="1"
             android:textStyle="bold"
             />
 
         <TextView
-            android:id="@+id/item_url"
+            android:id="@+id/item_memo_tv_content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/item_icon"
-            android:layout_below="@+id/item_title"
-            android:layout_alignBaseline="@+id/item_icon"
-            android:textColor="@android:color/holo_blue_dark"
+            android:layout_toRightOf="@+id/item_memo_iv_image"
+            android:layout_below="@+id/item_memo_tv_title"
+            android:layout_alignBaseline="@+id/item_memo_iv_image"
+            android:textColor="@android:color/black"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="2dp"
-            android:text="Content"
+            android:maxLines="2"
             android:textSize="14dp" />
-
     </RelativeLayout>
 
 </LinearLayout>

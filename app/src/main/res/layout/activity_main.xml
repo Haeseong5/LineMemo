@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".memo.MainActivity">
+    android:background="@android:color/white"
+    tools:mContext=".memo.MainActivity">
     <include
-        layout="@layout/appbar_memo"/>
+        layout="@layout/appbar"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recyclerview"
+        android:id="@+id/main_rv_memo_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

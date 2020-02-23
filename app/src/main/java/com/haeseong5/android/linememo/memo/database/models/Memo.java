@@ -1,13 +1,12 @@
-package com.haeseong5.android.linememo.memo.database.model;
+package com.haeseong5.android.linememo.memo.database.models;
 
-import android.graphics.Bitmap;
-
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  *  썸네일, 제목, 글의 일부
  */
-public class Memo implements Serializable {
+public class Memo implements Parcelable {
     public static final String TABLE_NAME = "notes";
 
     public static final String COLUMN_ID = "id";
@@ -20,28 +19,45 @@ public class Memo implements Serializable {
     private int id;
     private String title;
     private String content;
-    private byte[] image;
-
+    private byte[] thumbNail;
 
     // Create table SQL query
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_TITLE + " TEXT,"
-                    + COLUMN_CONTENT + " TEXT,"
-                    + COLUMN_IMAGE + " BLOB"
+                    + COLUMN_CONTENT + " TEXT"
+//                    + COLUMN_IMAGE + " BLOB"
 //                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
     public Memo(){
 
     }
 
-    public Memo(int id, String title, String content, byte[] image) {
+    public Memo(int id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.image = image;
     }
+
+    protected Memo(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        content = in.readString();
+        thumbNail = in.createByteArray();
+    }
+
+    public static final Creator<Memo> CREATOR = new Creator<Memo>() {
+        @Override
+        public Memo createFromParcel(Parcel in) {
+            return new Memo(in);
+        }
+
+        @Override
+        public Memo[] newArray(int size) {
+            return new Memo[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -67,11 +83,24 @@ public class Memo implements Serializable {
         this.content = content;
     }
 
-    public byte[] getImage() {
-        return image;
+    public byte[] getThumbNail() {
+        return thumbNail;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setThumbNail(byte[] thumbNail) {
+        this.thumbNail = thumbNail;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(content);
+        parcel.writeByteArray(thumbNail);
     }
 }

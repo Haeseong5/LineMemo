@@ -7,9 +7,24 @@
 <!--        android:icon="@drawable/ic_edit_white_24dp"-->
 <!--        app:showAsAction="ifRoom"/>-->
 
-<!--    <item android:id="@+id/toolbar_menu_detail_delete"-->
-<!--        android:title="delete"-->
-<!--        app:showAsAction="never"/>-->
+
+    <item
+        android:id="@+id/menu_item_add_image"
+        android:icon="@drawable/ic_image_white_24dp"
+        android:title="image"
+        app:showAsAction="ifRoom" >
+        <menu>
+            <item android:id="@+id/toolbar_menu_gallery"
+                android:title="gallery"
+                app:showAsAction="never"/>
+            <item android:id="@+id/toolbar_menu_camera"
+                android:title="camera"
+                app:showAsAction="never"/>
+            <item android:id="@+id/toolbar_menu_url"
+                android:title="url"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/menu_item_finish_memo"
